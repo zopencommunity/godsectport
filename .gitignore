@@ -4,3 +4,4 @@ log.STABLE/
 build/
 install/
 zos*/
+._*

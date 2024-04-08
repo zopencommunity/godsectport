@@ -1,41 +1,48 @@
+# Update bump details accordingly. Use bump check to confirm.
+# bump: lazygit-version /GODSECT_VERSION="(.*)"/ https://github.com/IBM/godsect.git|semver:*
+# GODSECT_VERSION="V.R.M" # Specify a stable release
+# export ZOPEN_STABLE_TAG="v${GODSECT_VERSION}"
 export ZOPEN_STABLE_URL="https://github.com/IBM/godsect.git"
-export ZOPEN_STABLE_DEPS="make moreutils comp_go coreutils"
-export ZOPEN_DEV_URL="https://github.com/IBM/godsect.git"
-export ZOPEN_DEV_DEPS="make moreutils comp_go coreutils"
+export ZOPEN_STABLE_DEPS="comp_go"
 export ZOPEN_BUILD_LINE="STABLE"
-export ZOPEN_DONT_ADD_ZOSLIB_DEP=1
+export ZOPEN_CATEGORIES="devops utilities"
+
+export ZOPEN_COMP=GO
 export ZOPEN_CONFIGURE="skip"
-export ZOPEN_COMP="GO"
+export ZOPEN_CONFIGURE_MINIMAL=1
+export ZOPEN_MAKE="zopen_build"
+export ZOPEN_MAKE_MINIMAL=1
+export ZOPEN_CHECK="skip"
+export ZOPEN_CLEAN="zopen_clean"
+export ZOPEN_INSTALL="zopen_install"
+export ZOPEN_COMP=GO
 
-# zopen doesn't like hyphens, strip them out
-export ZOPEN_NAME="godsect"
-ln -sf godsect godsect
-
-export ZOPEN_INSTALL_OPTS="PREFIX=\$ZOPEN_INSTALL_DIR install"
-
-zopen_pre_patch() {
+zopen_init()
+{
   export CGO_ENABLED=0
-  export CFLAGS=""
-  export CPPFLAGS=""
+  export GOBIN=$ZOPEN_INSTALL_DIR/bin
+  mkdir -p $ZOPEN_INSTALL_DIR
 }
 
-zopen_check_results()
+zopen_build()
 {
-dir="$1"
-pfx="$2"
-chk="$1/$2_check.log"
+  echo $PWD
+  go version
+  go build 
+}
 
-# Echo the following information to gauge build health
-echo "actualFailures:0"
-echo "totalTests:1"
-echo "expectedFailures:0"
-echo "expectedTotalTests:1"
+zopen_clean()
+{
+  pwd 
+  true
+}
+
+zopen_install()
+{
+  go install 
 }
 
 zopen_get_version()
 {
-# Modify to echo the version of your tool/library
-# Rather than hardcoding the version, obtain the version by running the tool/library
-echo "1.0.0"
+  echo "1.0.0"
 }
-
