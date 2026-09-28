@@ -1,7 +1,7 @@
-# Update bump details accordingly. Use bump check to confirm.
-# bump: lazygit-version /GODSECT_VERSION="(.*)"/ https://github.com/IBM/godsect.git|semver:*
-# GODSECT_VERSION="V.R.M" # Specify a stable release
-# export ZOPEN_STABLE_TAG="v${GODSECT_VERSION}"
+# bump: godsect-version /GODSECT_VERSION="(.*)"/ git:https://github.com/IBM/godect.git|semver:*
+GODSECT_VERSION="1.0.10"
+export GODSECT_VERSION
+
 export ZOPEN_STABLE_URL="https://github.com/IBM/godsect.git"
 export ZOPEN_STABLE_DEPS="check_go"
 export ZOPEN_BUILD_LINE="STABLE"
